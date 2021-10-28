@@ -1,0 +1,33 @@
+GET http://localhost:5000/role
+###
+GET http://localhost:5000/role/3
+###
+POST http://localhost:5000/role
+Content-Type: application/json
+
+{
+    "id": null,
+    "nama": "Coba 2",
+    "created_by": 1
+}
+###
+PATCH  http://localhost:5000/role/3
+Content-Type: application/json
+ 
+{
+    "nama": "Satpam -",
+    "created_by": 1
+}
+
+###
+DELETE  http://localhost:5000/role/3
+Content-Type: application/json
+
+
+###
+PATCH  http://localhost:5000/role/softdel/3
+Content-Type: application/json
+{
+    "deleted_at": "2021-10-28 20:06:38",
+    "deleted_by": 1
+}
