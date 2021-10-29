@@ -1,5 +1,5 @@
 import express from "express";
-import roleRoutes from "./routes/index.js";
+import apiRoutes from "./routes/index.js";
 import cors from "cors";
 
 const app = express();
@@ -14,7 +14,7 @@ try {
 
 app.use(cors());
 app.use(express.json());
-app.use('/role', roleRoutes);
+app.use('/', apiRoutes);
 app.listen(port, () => console.log("server running"));
 
 

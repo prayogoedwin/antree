@@ -1,9 +1,13 @@
-import Role from '../models/roleModel.js';
+import User from '../models/userModel.js';
+import bcryptjs from 'bcryptjs';
 
-export const getAllRoles = async (req, res) => {
+
+const bcrypt = bcryptjs;
+
+export const getAllUsers = async (req, res) => {
 
     try {
-        const role = await Role.findAll({
+        const user = await User.findAll({
             where:{
                 deleted_at: null
             }
@@ -11,7 +15,7 @@ export const getAllRoles = async (req, res) => {
         res.json({
            'status' : 1,
            'message': 'Success',
-           'data': role
+           'data': user
          });
     } catch (error) {
         res.json({
@@ -24,10 +28,10 @@ export const getAllRoles = async (req, res) => {
     
 }
 
-export const getRoleById = async (req, res) => {
+export const getUserById = async (req, res) => {
 
     try {
-        const role = await Role.findAll({
+        const user = await User.findAll({
             where: {
                 id: req.params.id
             }
@@ -35,7 +39,7 @@ export const getRoleById = async (req, res) => {
         res.json({
            'status' : 1,
            'message': 'Success',
-           'data': role[0]
+           'data': user[0]
          });
     } catch (error) {
         res.json({
@@ -48,17 +52,17 @@ export const getRoleById = async (req, res) => {
     
 }
 
-export const updateRole = async (req, res) => {
+export const updateUser = async (req, res) => {
 
     try {
 
-        const role = await Role.update(req.body, {
+        const user = await User.update(req.body, {
             where: {
                 id: req.params.id
             }
         });
 
-        const role_d = await Role.findAll({
+        const user_d = await user.findAll({
             where: {
                 id: req.params.id
             }
@@ -67,13 +71,13 @@ export const updateRole = async (req, res) => {
         res.json({
            'status' : 1,
            'message': 'Success',
-           'data': role_d[0]
+           'data': user_d[0]
          });
     } catch (error) {
         res.json({
             'status' : 0,
             'message': error.message,
-            'data': role_d[0]
+            'data': user_d[0]
           });
         res.json({message: error.message});
     }
@@ -81,14 +85,23 @@ export const updateRole = async (req, res) => {
 }
 
 
-export const createRole = async (req, res) => {
+export const createUser = async (req, res) => {
 
     try {
-        const role = await Role.create(req.body);
+        const user = await User.create(
+            {
+                id: null,
+				email: req.body.email,
+				nama: req.body.nama,
+				password: bcrypt.hashSync(req.body.password, 11),
+                role_id: req.body.role_id,
+                created_by: req.body.created_by,
+			}
+        )
         res.json({
             'status' : 1,
             'message': 'Success',
-            'data': role
+            'data': user
           });
     } catch (error) {
         res.json({
@@ -100,10 +113,10 @@ export const createRole = async (req, res) => {
     
 }
 
-export const deleteRole = async (req, res) => {
+export const deleteUser = async (req, res) => {
 
     try {
-        const role = await Role.destroy({
+        const user = await User.destroy({
             where: {
                 id: req.params.id
             }
@@ -111,7 +124,7 @@ export const deleteRole = async (req, res) => {
         res.json({
            'status' : 1,
            'message': 'Success',
-           'data': role[0]
+           'data': user[0]
          });
     } catch (error) {
         res.json({
@@ -124,17 +137,15 @@ export const deleteRole = async (req, res) => {
     
 }
 
-export const softDeleteRole = async (req, res) => {
+export const softDeleteUser = async (req, res) => {
 
     try {
 
-        const role = await Role.update(req.body, {
+        const user = await User.update(req.body, {
             where: {
                 id: req.params.id
             }
         });
-
-
 
         res.json({
            'status' : 1,

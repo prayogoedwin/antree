@@ -7,14 +7,25 @@ const { DataTypes } = Sequelize;
 
 //define schema
 //db.define('antrian_role',{fields}, {opsi => lihat di dokumentasi sqequelize})
-const Role = db.define('antrian_roles',{
+const User = db.define('antrian_users',{
     id:{
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV1,
         primaryKey: true
     },
+    email:{
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+    },
+    password:{
+        type: DataTypes.STRING
+    },
     nama:{
         type: DataTypes.STRING
+    },
+    role_id:{
+        type: DataTypes.UUID
     },
     created_by:{
         type: DataTypes.UUID
@@ -36,4 +47,4 @@ const Role = db.define('antrian_roles',{
     createdAt: 'created_at'
 });
 
-export default Role;
+export default User;

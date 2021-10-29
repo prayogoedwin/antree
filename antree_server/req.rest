@@ -1,14 +1,15 @@
-GET http://localhost:5000/role
+GET http://localhost:5000/user
 ###
 GET http://localhost:5000/role/3
 ###
-POST http://localhost:5000/role
+POST http://localhost:5000/user
 Content-Type: application/json
 
 {
-    "id": null,
-    "nama": "Coba 2",
-    "created_by": 1
+    "email": "edwin@gmail.com",
+    "nama": "Edwin",
+    "password": "123",
+    "role_id": 1
 }
 ###
 PATCH  http://localhost:5000/role/3
